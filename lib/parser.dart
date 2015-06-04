@@ -1,3 +1,5 @@
-library IlmenscriptParser;
+import 'package:Ilmenscript/toast.dart';
 
-// parse code
+void parse(String code) {
+  // parse code
+}

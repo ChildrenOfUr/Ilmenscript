@@ -1,5 +1,5 @@
-import 'package:Ilmenscript/parser.dart' as parser;
+import '../lib/parser.dart' as parser;
 
 main(List<String> arguments) {
-
+  parser.parse(arguments[0]);
 }
