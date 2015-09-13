@@ -1,7 +1,5 @@
 name: Ilmenscript
 version: 0.0.1
-description: In-game programming language.
-environment:
-  sdk: '>=1.0.0 <2.0.0'
-dev_dependencies:
-  test: '>=0.12.0 <0.13.0'
+description: In-game programming language implementing Google Blockly.
+dependencies:
+  browser: any

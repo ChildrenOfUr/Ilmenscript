@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ilmenscript Editor</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Blockly workspace -->
+<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+
+<!-- Blockly toolbox -->
+<xml id="toolbox" style="display: none">
+    <category name="Control">
+        <block type="controls_whileUntil"></block>
+        <block type="controls_repeat_ext"></block>
+    </category>
+    <category name="Logic">
+        <block type="controls_if"></block>
+        <block type="logic_compare"></block>
+        <block type="logic_operation"></block>
+        <block type="logic_boolean"></block>
+    </category>
+    <category name="Math">
+        <block type="math_number"></block>
+        <block type="math_arithmetic"></block>
+    </category>
+    <category name="Text">
+        <block type="text"></block>
+        <block type="text_print"></block>
+    </category>
+    <sep></sep>
+    <category name="Game Actions">
+        <block type="openwindow"></block>
+        <block type="toast"></block>
+    </category>
+    <category name="Game Data">
+        <block type="playeronline"></block>
+    </category>
+    <sep></sep>
+    <category name="Variables" custom="VARIABLE"></category>
+    <category name="Functions" custom="PROCEDURE"></category>
+</xml>
+
+<!-- Load Blockly -->
+<script src="blockly/blockly_compressed.js"></script>
+<script src="blockly/blocks_compressed.js"></script>
+<script src="blockly/msg/js/en.js"></script>
+
+<!-- Load blocks -->
+<script src="blocks/openwindow.js"></script>
+<script src="blocks/toast.js"></script>
+<script src="blocks/useronline.js"></script>
+
+<!-- JS Interpreter -->
+<script src="acorn/acorn_interpreter.js"></script>
+
+<!-- Start the program -->
+<script>
+    var workspace = Blockly.inject("blocklyDiv", {
+        "collapse": true, // Allows blocks to be collapsed or expanded
+        "comments": true, // Allows blocks to have comments
+        "disable": true, // Allows blocks to be disabled
+        "grid": {
+            "spacing": 25, // 25px between gridlines
+            "length": 1, // Gridlines only show intersection points
+            "color": "#eee",
+            "snap": true // Snap blocks to gridlines
+        },
+        "sounds": false, // Don't play click/delete/etc sounds
+        "toolbox": document.querySelector("#toolbox"), // Specify the blocks
+        "trashcan": true // Displays the trashcan
+    });
+
+    function run() {
+        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        var interpreter = new Interpreter(code);
+        interpreter.run();
+    }
+</script>
+
+<!-- Dart app -->
+<!--
+<script src="packages/browser/dart.js"></script>
+<script type="application/dart" src="main.dart"></script>
+-->
+
+</body>
+</html>
