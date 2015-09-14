@@ -1,0 +1,39 @@
+/* Block cursors */
+
+.blocklyDraggable {
+    cursor: -webkit-grab !important;
+}
+
+.blocklyDraggable:active {
+    cursor: -webkit-grabbing !important;
+}
+
+/* Selected blocks */
+
+.blocklySelected > .blocklyPath {
+    stroke: #4b2e4c;
+    stroke-width: 3px;
+}
+
+/* Remove 3D effect */
+
+.blocklyPathLight {
+    opacity: 0;
+}
+
+/* Block text */
+
+.blocklyText {
+    text-shadow: 0 0 5px #FFF;
+}
+
+/* Text entry */
+
+.blocklyEditableText > rect {
+    fill: white;
+    fill-opacity: 0.6;
+}
+
+.blocklyEditableText > text {
+    fill: black;
+}

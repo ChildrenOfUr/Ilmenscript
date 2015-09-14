@@ -3,12 +3,12 @@
 <head>
     <title>Ilmenscript Editor</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 
 <!-- Blockly workspace -->
-<div id="blocklyDiv" style="height: 480px; width: 600px;"></div>
+<div id="workspace"></div>
 
 <!-- Blockly toolbox -->
 <xml id="toolbox" style="display: none">
@@ -32,11 +32,11 @@
     </category>
     <sep></sep>
     <category name="Game Actions">
-        <block type="openwindow"></block>
-        <block type="toast"></block>
+        <!--<block type="openwindow"></block>-->
+        <!--<block type="toast"></block>-->
     </category>
     <category name="Game Data">
-        <block type="playeronline"></block>
+        <!--<block type="playeronline"></block>-->
     </category>
     <sep></sep>
     <category name="Variables" custom="VARIABLE"></category>
@@ -49,28 +49,29 @@
 <script src="blockly/msg/js/en.js"></script>
 
 <!-- Load blocks -->
-<script src="blocks/openwindow.js"></script>
-<script src="blocks/toast.js"></script>
-<script src="blocks/useronline.js"></script>
+<!--<script src="blocks/openwindow.js"></script>-->
+<!--<script src="blocks/toast.js"></script>-->
+<!--<script src="blocks/useronline.js"></script>-->
 
 <!-- JS Interpreter -->
 <script src="acorn/acorn_interpreter.js"></script>
 
 <!-- Start the program -->
 <script>
-    var workspace = Blockly.inject("blocklyDiv", {
-        "collapse": true, // Allows blocks to be collapsed or expanded
-        "comments": true, // Allows blocks to have comments
-        "disable": true, // Allows blocks to be disabled
-        "grid": {
-            "spacing": 25, // 25px between gridlines
-            "length": 1, // Gridlines only show intersection points
-            "color": "#eee",
-            "snap": true // Snap blocks to gridlines
+    var workspace = Blockly.inject("workspace", {
+        collapse: true, // Allows blocks to be collapsed or expanded
+        comments: true, // Allows blocks to have comments
+        css: false, // Use our own CSS
+        disable: true, // Allows blocks to be disabled
+        grid: {
+            spacing: 25, // 25px between gridlines
+            length: 5, // Gridlines only show intersection points
+            colour: "#ddd",
+            snap: true // Snap blocks to gridlines
         },
-        "sounds": false, // Don't play click/delete/etc sounds
-        "toolbox": document.querySelector("#toolbox"), // Specify the blocks
-        "trashcan": true // Displays the trashcan
+        sounds: false, // Don't play click/delete/etc sounds
+        toolbox: document.querySelector("#toolbox"), // Specify the blocks
+        trashcan: true // Displays the trashcan
     });
 
     function run() {
@@ -80,11 +81,12 @@
     }
 </script>
 
+<!-- Transmit -->
+<script src="packages/transmit/transmit.js"></script>
+
 <!-- Dart app -->
-<!--
 <script src="packages/browser/dart.js"></script>
 <script type="application/dart" src="main.dart"></script>
--->
 
 </body>
 </html>

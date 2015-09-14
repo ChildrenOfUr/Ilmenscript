@@ -1,0 +1,34 @@
+/* Container */
+
+#workspace {
+    /* Width + Height of the ur-well container */
+    width: 822px;
+    height: 477px;
+}
+
+/* Scrollbars */
+
+.blocklyScrollbarBackground {
+    opacity: 0;
+}
+
+.blocklyScrollbarKnob {
+    opacity: 0.25;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.blocklyScrollbarKnob:hover,
+.blocklyScrollbarKnob:active {
+    opacity: 0.5;
+    cursor: default;
+}
+
+/* Grid Area */
+
+.blocklyMainBackground:hover {
+    cursor: -webkit-grab;
+}
+
+.blocklyMainBackground:active {
+    cursor: -webkit-grabbing;
+}

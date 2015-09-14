@@ -1,0 +1,38 @@
+/* Panel */
+
+.blocklyToolboxDiv {
+    background-color: #eee;
+    overflow-x: visible;
+    overflow-y: auto;
+    position: absolute;
+    box-shadow: 0 0 10px #444;
+}
+
+/* Item */
+
+.blocklyTreeRow {
+    margin: 0 10px 10px 10px;
+}
+
+/* Category Text */
+
+.blocklyTreeLabel:hover {
+    cursor: pointer;
+    transition: background-color 0.1s ease-in-out;
+    color: #666;
+}
+
+.blocklyTreeRow.blocklyTreeSelected {
+    font-weight: bold;
+}
+
+.blocklyTreeRoot .blocklyTreeRow .blocklyTreeLabel {
+    padding: 10px;
+}
+
+/* Block List */
+
+.blocklyFlyoutBackground {
+    opacity: 0.8;
+    fill: white;
+}

@@ -1,0 +1,28 @@
+/* More CSS */
+
+@import url(blocks.css);
+@import url(menu.css);
+@import url(toolbox.css);
+@import url(workspace.css);
+
+/* Containers */
+
+html {
+    background-color: white;
+    overflow: hidden;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #eee;
+    width: 822px;
+    height: 477px;
+}
+
+/* Focus Markers */
+
+* {
+    outline: none;
+}
