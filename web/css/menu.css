@@ -22,7 +22,7 @@
 
 /* Menu item */
 
-.blocklyWidgetDiv .goog-menuitem {
+.goog-menuitem {
     color: #000;
     list-style: none;
     margin: 0;
@@ -30,10 +30,26 @@
     white-space: nowrap;
 }
 
-.blocklyWidgetDiv .goog-menuitem:hover {
+.goog-menuitem:hover {
     background-color: #4b2e4c;
     color: white;
     cursor: pointer;
+}
+
+/* Selected menu item */
+
+.goog-option-selected::before {
+    content: "\2713"; /* Checkmark */
+    position: absolute;
+    left: 8px;
+}
+
+/* Disabled menu item */
+
+.goog-menuitem-disabled {
+    font-style: italic;
+    pointer-events: none;
+    opacity: 0.5;
 }
 
 /* Text input */

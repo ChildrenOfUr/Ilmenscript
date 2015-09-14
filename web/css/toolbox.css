@@ -30,6 +30,14 @@
     padding: 10px;
 }
 
+/* Separator */
+
+.blocklyTreeSeparator {
+    border-top: 1px solid #ddd;
+    position: relative;
+    top: 5px;
+}
+
 /* Block List */
 
 .blocklyFlyoutBackground {

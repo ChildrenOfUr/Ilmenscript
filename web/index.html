@@ -1,67 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Support special math characters -->
+    <meta charset="utf-8">
+
     <title>Ilmenscript Editor</title>
+
+    <!-- Lato -->
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic" rel="stylesheet">
+
+    <!-- Styles -->
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/blocks.css" rel="stylesheet">
+    <link href="css/menu.css" rel="stylesheet">
+    <link href="css/toolbox.css" rel="stylesheet">
+    <link href="css/workspace.css" rel="stylesheet">
 </head>
 <body>
 
-<!-- Blockly workspace -->
-<div id="workspace"></div>
+<!-- Load Blockly -->
+<script src="blockly/blockly_compressed.js"></script>
+<script src="blockly/blocks_compressed.js"></script>
+<script src="blockly/javascript_compressed.js"></script>
+<script src="blockly/msg/js/en.js"></script>
+<script src="blockly/generators/javascript/game.js"></script>
 
 <!-- Blockly toolbox -->
-<xml id="toolbox" style="display: none">
-    <category name="Control">
-        <block type="controls_whileUntil"></block>
-        <block type="controls_repeat_ext"></block>
+<xml id="toolbox-data">
+    <category name="Control" expanded="true">
+        <block type="controls_if"></block>
+        <block type="controls_if">
+            <mutation else="1"></mutation>
+        </block>
+        <block type="controls_if">
+            <mutation elseif="1" else="1"></mutation>
+        </block>
+        <category name="Loops">
+            <block type="controls_repeat_ext"></block>
+            <block type="controls_whileUntil"></block>
+            <block type="controls_for"></block>
+            <block type="controls_forEach"></block>
+            <block type="controls_flow_statements"></block>
+        </category>
     </category>
     <category name="Logic">
-        <block type="controls_if"></block>
         <block type="logic_compare"></block>
         <block type="logic_operation"></block>
+        <block type="logic_negate"></block>
         <block type="logic_boolean"></block>
+        <block type="logic_null"></block>
+        <block type="logic_ternary"></block>
     </category>
     <category name="Math">
         <block type="math_number"></block>
         <block type="math_arithmetic"></block>
+        <block type="math_single"></block>
+        <block type="math_trig"></block>
+        <block type="math_constant"></block>
+        <block type="math_number_property"></block>
+        <block type="math_change"></block>
+        <block type="math_round"></block>
+        <block type="math_on_list"></block>
+        <block type="math_modulo"></block>
+        <block type="math_constrain"></block>
+        <block type="math_random_int"></block>
+        <block type="math_random_float"></block>
     </category>
     <category name="Text">
         <block type="text"></block>
+        <block type="text_join"></block>
+        <block type="text_append"></block>
+        <block type="text_length"></block>
+        <block type="text_isEmpty"></block>
+        <block type="text_indexOf"></block>
+        <block type="text_charAt"></block>
+        <block type="text_getSubstring"></block>
+        <block type="text_changeCase"></block>
+        <block type="text_trim"></block>
         <block type="text_print"></block>
+        <block type="text_prompt_ext"></block>
+    </category>
+    <category name="Lists">
+        <block type="lists_create_empty"></block>
+        <block type="lists_create_with"></block>
+        <block type="lists_repeat"></block>
+        <block type="lists_length"></block>
+        <block type="lists_isEmpty"></block>
+        <block type="lists_indexOf"></block>
+        <block type="lists_getIndex"></block>
+        <block type="lists_setIndex"></block>
     </category>
     <sep></sep>
-    <category name="Game Actions">
-        <!--<block type="openwindow"></block>-->
-        <!--<block type="toast"></block>-->
-    </category>
-    <category name="Game Data">
-        <!--<block type="playeronline"></block>-->
+    <category name="Game" expanded="true">
+        <category name="Actions">
+            <block type="openwindow"></block>
+            <block type="toast"></block>
+        </category>
+        <category name="Data">
+            <block type="playeronline"></block>
+        </category>
     </category>
     <sep></sep>
     <category name="Variables" custom="VARIABLE"></category>
     <category name="Functions" custom="PROCEDURE"></category>
 </xml>
 
-<!-- Load Blockly -->
-<script src="blockly/blockly_compressed.js"></script>
-<script src="blockly/blocks_compressed.js"></script>
-<script src="blockly/msg/js/en.js"></script>
+<!-- Blockly workspace -->
+<div id="workspace"></div>
 
-<!-- Load blocks -->
-<!--<script src="blocks/openwindow.js"></script>-->
-<!--<script src="blocks/toast.js"></script>-->
-<!--<script src="blocks/useronline.js"></script>-->
+<!-- Transmit -->
+<script src="packages/transmit/transmit.js"></script>
 
 <!-- JS Interpreter -->
 <script src="acorn/acorn_interpreter.js"></script>
 
-<!-- Start the program -->
+<!-- Start Blockly -->
 <script>
     var workspace = Blockly.inject("workspace", {
         collapse: true, // Allows blocks to be collapsed or expanded
         comments: true, // Allows blocks to have comments
-        css: false, // Use our own CSS
+        css: false, // Use our own CSS without tons of !important
         disable: true, // Allows blocks to be disabled
         grid: {
             spacing: 25, // 25px between gridlines
@@ -70,19 +128,19 @@
             snap: true // Snap blocks to gridlines
         },
         sounds: false, // Don't play click/delete/etc sounds
-        toolbox: document.querySelector("#toolbox"), // Specify the blocks
+        toolbox: document.querySelector("#toolbox-data"), // Specify the blocks
         trashcan: true // Displays the trashcan
     });
 
     function run() {
         var code = Blockly.JavaScript.workspaceToCode(workspace);
+        console.log("[Running]\n" + code);
         var interpreter = new Interpreter(code);
         interpreter.run();
     }
 </script>
 
-<!-- Transmit -->
-<script src="packages/transmit/transmit.js"></script>
+<button onclick="run();">Run</button>
 
 <!-- Dart app -->
 <script src="packages/browser/dart.js"></script>

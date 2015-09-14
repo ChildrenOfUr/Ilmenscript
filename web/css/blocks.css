@@ -8,11 +8,13 @@
     cursor: -webkit-grabbing !important;
 }
 
-/* Selected blocks */
+/* Selected blocks and blocks before dropping onto others */
 
-.blocklySelected > .blocklyPath {
+.blocklySelected > .blocklyPath,
+.blocklyHighlightedConnectionPath{
     stroke: #4b2e4c;
     stroke-width: 3px;
+    fill: none;
 }
 
 /* Remove 3D effect */
@@ -24,7 +26,8 @@
 /* Block text */
 
 .blocklyText {
-    text-shadow: 0 0 5px #FFF;
+    text-shadow: 0 0 5px #444;
+    fill: white;
 }
 
 /* Text entry */
@@ -34,6 +37,8 @@
     fill-opacity: 0.6;
 }
 
-.blocklyEditableText > text {
-    fill: black;
+/* Mutator window */
+
+.blocklyMutatorBackground {
+    fill: #eee;
 }
