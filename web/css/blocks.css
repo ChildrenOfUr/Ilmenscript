@@ -42,3 +42,18 @@
 .blocklyMutatorBackground {
     fill: #eee;
 }
+
+/* Tooltips */
+
+.blocklyTooltipDiv {
+    background-color: #ffffee;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    color: #000;
+    font-size: 12px;
+    display: none;
+    padding: 5px;
+    position: absolute;
+    z-index: 1000;
+}

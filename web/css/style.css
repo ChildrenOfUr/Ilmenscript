@@ -25,3 +25,50 @@ body {
 #toolbox-data {
     display: none;
 }
+
+/* Run button */
+
+#run {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-bottom-left-radius: 8px;
+    border-top-right-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: "Lato", sans-serif;
+    font-weight: bold;
+    background-color: rgb(235, 243, 225);
+    background: -moz-linear-gradient(top, #ffffff 0%, #ebf3e1 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ebf3e1));
+    background: -webkit-linear-gradient(top, #ffffff 0%,#ebf3e1 100%);
+    background: -o-linear-gradient(top, #ffffff 0%,#ebf3e1 100%);
+    background: -ms-linear-gradient(top, #ffffff 0%,#ebf3e1 100%);
+    background: linear-gradient(to bottom, #ffffff 0%,#ebf3e1 100%);
+    border: 1px solid rgb(182, 218, 120);
+    color: rgb(97, 131, 36);
+}
+
+#run:hover {
+    color: rgb(215, 144, 53);
+    text-decoration: none;
+    border-color: rgb(241, 205, 156);
+    background: -moz-linear-gradient(top, #ffffff 0%, #f9f5e4 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f9f5e4));
+    background: -webkit-linear-gradient(top, #ffffff 0%,#f9f5e4 100%);
+    background: -o-linear-gradient(top, #ffffff 0%,#f9f5e4 100%);
+    background: -ms-linear-gradient(top, #ffffff 0%,#f9f5e4 100%);
+    background: linear-gradient(to bottom, #ffffff 0%,#f9f5e4 100%);
+}
+
+#run:active {
+    outline: 0;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+#run span {
+    color: #58BB69;
+    margin-right: 2px;
+    position: relative;
+    top: -1px;
+}

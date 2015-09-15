@@ -6,27 +6,37 @@
 
     <title>Ilmenscript Editor</title>
 
-    <!-- Lato -->
+    <!-- Lato Webfont -->
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic" rel="stylesheet">
 
-    <!-- Styles -->
+    <!-- Base/Page Styles -->
     <link href="css/style.css" rel="stylesheet">
+    <!-- Block Styles -->
     <link href="css/blocks.css" rel="stylesheet">
+    <!-- Context Menu Styles -->
     <link href="css/menu.css" rel="stylesheet">
+    <!-- Toolbox Styles -->
     <link href="css/toolbox.css" rel="stylesheet">
+    <!-- Workspace/Grid Styles -->
     <link href="css/workspace.css" rel="stylesheet">
 </head>
 <body>
-
-<!-- Load Blockly -->
-<script src="blockly/blockly_compressed.js"></script>
+<!-- Blockly -->
+<script src="blockly/blockly_uncompressed.js"></script>
+<!-- Core Blocks -->
 <script src="blockly/blocks_compressed.js"></script>
+<!-- Core Block Code Generators -->
 <script src="blockly/javascript_compressed.js"></script>
+<!-- English Strings -->
 <script src="blockly/msg/js/en.js"></script>
+<!-- Custom Blocks: Definitions -->
+<script src="blockly/blocks/game.js"></script>
+<!-- Custom Blocks: Code Generators -->
 <script src="blockly/generators/javascript/game.js"></script>
 
 <!-- Blockly toolbox -->
 <xml id="toolbox-data">
+    <!-- Control Blocks -->
     <category name="Control" expanded="true">
         <block type="controls_if"></block>
         <block type="controls_if">
@@ -43,6 +53,7 @@
             <block type="controls_flow_statements"></block>
         </category>
     </category>
+    <!-- Logic Blocks -->
     <category name="Logic">
         <block type="logic_compare"></block>
         <block type="logic_operation"></block>
@@ -51,6 +62,7 @@
         <block type="logic_null"></block>
         <block type="logic_ternary"></block>
     </category>
+    <!-- Math Blocks -->
     <category name="Math">
         <block type="math_number"></block>
         <block type="math_arithmetic"></block>
@@ -66,6 +78,7 @@
         <block type="math_random_int"></block>
         <block type="math_random_float"></block>
     </category>
+    <!-- String Blocks -->
     <category name="Text">
         <block type="text"></block>
         <block type="text_join"></block>
@@ -80,6 +93,7 @@
         <block type="text_print"></block>
         <block type="text_prompt_ext"></block>
     </category>
+    <!-- List Blocks -->
     <category name="Lists">
         <block type="lists_create_empty"></block>
         <block type="lists_create_with"></block>
@@ -90,28 +104,40 @@
         <block type="lists_getIndex"></block>
         <block type="lists_setIndex"></block>
     </category>
+    <!-- Colors -->
+    <category name="Colors">
+        <block type="colour_picker"></block>
+        <block type="colour_random"></block>
+        <block type="colour_rgb"></block>
+        <block type="colour_blend"></block>
+    </category>
     <sep></sep>
+    <!-- Custom Blocks -->
     <category name="Game" expanded="true">
+        <!-- Game Actions (toast, open, move, etc) -->
         <category name="Actions">
-            <block type="openwindow"></block>
             <block type="toast"></block>
+            <block type="jump"></block>
+            <block type="walk"></block>
         </category>
+        <!-- Game Data ("getters") -->
         <category name="Data">
-            <block type="playeronline"></block>
         </category>
     </category>
     <sep></sep>
+    <!-- Variables -->
     <category name="Variables" custom="VARIABLE"></category>
+    <!-- Functions -->
     <category name="Functions" custom="PROCEDURE"></category>
 </xml>
 
-<!-- Blockly workspace -->
+<!-- Blockly workspace (Blockly is added to this) -->
 <div id="workspace"></div>
 
-<!-- Transmit -->
+<!-- Transmit Library (JS <-> Game Communication) -->
 <script src="packages/transmit/transmit.js"></script>
 
-<!-- JS Interpreter -->
+<!-- JS Interpreter (to run the generated JS) -->
 <script src="acorn/acorn_interpreter.js"></script>
 
 <!-- Start Blockly -->
@@ -128,19 +154,58 @@
             snap: true // Snap blocks to gridlines
         },
         sounds: false, // Don't play click/delete/etc sounds
-        toolbox: document.querySelector("#toolbox-data"), // Specify the blocks
-        trashcan: true // Displays the trashcan
+        toolbox: document.querySelector("#toolbox-data") // Specify the blocks
     });
+</script>
 
-    function run() {
-        var code = Blockly.JavaScript.workspaceToCode(workspace);
-        console.log("[Running]\n" + code);
-        var interpreter = new Interpreter(code);
-        interpreter.run();
+<!-- Interpreter <-> Browser API -->
+<script>
+    function initApi(interpreter, scope) {
+        // alert()
+        var wrapper = function (text) {
+            text = text ? text.toString() : '';
+            return interpreter.createPrimitive(alert(text));
+        };
+        interpreter.setProperty(scope, 'alert', interpreter.createNativeFunction(wrapper));
+
+        // prompt()
+        wrapper = function (text) {
+            text = text ? text.toString() : '';
+            return interpreter.createPrimitive(prompt(text));
+        };
+        interpreter.setProperty(scope, 'prompt', interpreter.createNativeFunction(wrapper));
+
+        // transmit()
+        wrapper = function (channel, text) {
+            text = text ? text.toString() : '';
+            return interpreter.createPrimitive(transmit(channel, text));
+        };
+        interpreter.setProperty(scope, 'transmit', interpreter.createNativeFunction(wrapper));
     }
 </script>
 
-<button onclick="run();">Run</button>
+<!-- Run Button -->
+<script>
+    function run() {
+        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        try {
+            var interpreter = new Interpreter(code, initApi);
+            interpreter.run();
+        } catch (e) {
+            alert(
+                    "⚠ There was an error running your code!\n\n" +
+                    "Please check it for these common errors, then try to run it again:\n\n" +
+                    "⚫ Typing errors (using one type of data when you need another)\n" +
+                    "⚫ Infinite loops (no condition for the loop to end)\n" +
+                    "⚫ Stray code (code you forgot to remove or blocks that are not connected to anything else)\n" +
+                    "⚫ Empty required variable slots\n\n" +
+                    "If you need help, let us know! The code you tried to run was:\n\n" +
+                    code
+            );
+        }
+    }
+</script>
+<button id="run" onclick="run();"><span>&#9654;</span> Run</button>
 
 <!-- Dart app -->
 <script src="packages/browser/dart.js"></script>
