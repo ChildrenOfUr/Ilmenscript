@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TESTING: Ilmenscript Editor</title>
+    <style>
+        iframe {
+            width: 822px;
+            height: 477px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Editor -->
+    <iframe src="index.html"></iframe>
+
+    <!-- Transmit Library (JS <-> Game Communication) -->
+    <script src="packages/transmit/transmit.js"></script>
+    <!-- Button to trigger a transmit -->
+    <button onclick="transmit('ilmenscript_test_incoming', 'mystring');">Send Message</button>
+
+    <!-- Listen for incoming events -->
+    <script>
+        window.addEventListener("ilmenscript_toast", console.log("toast!"));
+    </script>
+</body>
+</html>

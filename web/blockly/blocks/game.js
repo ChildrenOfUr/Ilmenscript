@@ -16,7 +16,7 @@ Blockly.Blocks['toast'] = {
         this.setNextStatement(true);
         this.setColour(270);
         this.setTooltip('Add a message to your in-game notification panel');
-        this.setHelpUrl('https://en.wikipedia.org/wiki/Pop-up_notification');
+        this.setHelpUrl('https://github.com/ChildrenOfUr/Ilmenscript/wiki/toast');
     }
 };
 
@@ -33,6 +33,7 @@ Blockly.Blocks['jump'] = {
         this.setNextStatement(true);
         this.setColour(160);
         this.setTooltip('Jumps once (triple jumps will still happen if you jump 3 times fast enough)');
+        this.setHelpUrl('https://github.com/ChildrenOfUr/Ilmenscript/wiki/jump');
     }
 };
 
@@ -71,5 +72,6 @@ Blockly.Blocks['walk'] = {
         this.setNextStatement(true);
         this.setColour(160);
         this.setTooltip('Moves your character in the specified direction for the specified number of seconds');
+        this.setHelpUrl('https://github.com/ChildrenOfUr/Ilmenscript/wiki/walk');
     }
 };

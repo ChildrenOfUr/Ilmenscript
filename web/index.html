@@ -8,6 +8,8 @@
 
     <!-- Lato Webfont -->
     <link href="https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <!-- Base/Page Styles -->
     <link href="css/style.css" rel="stylesheet">
@@ -19,6 +21,8 @@
     <link href="css/toolbox.css" rel="stylesheet">
     <!-- Workspace/Grid Styles -->
     <link href="css/workspace.css" rel="stylesheet">
+    <!-- Popup window styles -->
+    <link href="css/window.css" rel="stylesheet">
 </head>
 <body>
 <!-- Blockly -->
@@ -153,7 +157,6 @@
             colour: "#ddd",
             snap: true // Snap blocks to gridlines
         },
-        sounds: false, // Don't play click/delete/etc sounds
         toolbox: document.querySelector("#toolbox-data") // Specify the blocks
     });
 </script>
@@ -192,20 +195,55 @@
             var interpreter = new Interpreter(code, initApi);
             interpreter.run();
         } catch (e) {
-            alert(
-                    "⚠ There was an error running your code!\n\n" +
-                    "Please check it for these common errors, then try to run it again:\n\n" +
-                    "⚫ Typing errors (using one type of data when you need another)\n" +
-                    "⚫ Infinite loops (no condition for the loop to end)\n" +
-                    "⚫ Stray code (code you forgot to remove or blocks that are not connected to anything else)\n" +
-                    "⚫ Empty required variable slots\n\n" +
-                    "If you need help, let us know! The code you tried to run was:\n\n" +
-                    code
-            );
+            transmit("ilmenscript_internal_window", ["_error", code]);
+            console.warn("[Ilmenscript] Error running code: " + e);
         }
     }
 </script>
-<button id="run" onclick="run();"><span>&#9654;</span> Run</button>
+
+<div id="btn-container">
+    <!-- Saves button -->
+    <button class="btn" id="saves" onclick="transmit('ilmenscript_internal_saveswindow');"><i class="fa fa-folder-open"></i> My Programs</button>
+    <!-- Run button -->
+    <button class="btn" id="run" onclick="run();" hidden><i class="fa fa-play"></i> Run</button>
+    <!-- Help button -->
+    <a class="btn" id="help" href="https://github.com/ChildrenOfUr/Ilmenscript/wiki" target="_blank"><i class="fa fa-question-circle"></i> Help</a>
+</div>
+
+<!-- Popups -->
+<div id="windows">
+    <div class="window" id="window-template">
+        <button class="close"><i class="fa fa-times"></i></button>
+        <code class="code" hidden></code>
+        <p class="message"></p>
+    </div>
+    <div class="window" id="save-window">
+        <table class="saves">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Blocks</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Saves -->
+<script>
+    function getXml() {
+        var dom = Blockly.Xml.workspaceToDom(workspace);
+        var text = Blockly.Xml.domToText(dom);
+        console.log(text);
+    }
+
+    function loadXml(xml) {
+        var dom = Blockly.Xml.textToDom(xml);
+        Blockly.Xml.domToWorkspace(dom);
+    }
+</script>
 
 <!-- Dart app -->
 <script src="packages/browser/dart.js"></script>

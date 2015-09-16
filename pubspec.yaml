@@ -4,3 +4,7 @@ description: In-game programming language implementing Google Blockly.
 dependencies:
   browser: any
   transmit: any
+#  polymer: any
+#transformers:
+#- polymer:
+#    entry_points: web/index.html
