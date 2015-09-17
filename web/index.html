@@ -136,7 +136,7 @@
 </xml>
 
 <!-- Blockly workspace (Blockly is added to this) -->
-<div id="workspace"></div>
+<div id="workspace" class="disabled"></div>
 
 <!-- Transmit Library (JS <-> Game Communication) -->
 <script src="packages/transmit/transmit.js"></script>
@@ -210,27 +210,6 @@
     <a class="btn" id="help" href="https://github.com/ChildrenOfUr/Ilmenscript/wiki" target="_blank"><i class="fa fa-question-circle"></i> Help</a>
 </div>
 
-<!-- Popups -->
-<div id="windows">
-    <div class="window" id="window-template">
-        <button class="close"><i class="fa fa-times"></i></button>
-        <code class="code" hidden></code>
-        <p class="message"></p>
-    </div>
-    <div class="window" id="save-window">
-        <table class="saves">
-            <thead>
-                <tr>
-                    <td>Name</td>
-                    <td>Blocks</td>
-                    <td>Actions</td>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-</div>
-
 <!-- Saves -->
 <script>
     function getXml() {
@@ -248,6 +227,40 @@
 <!-- Dart app -->
 <script src="packages/browser/dart.js"></script>
 <script type="application/dart" src="main.dart"></script>
+
+<!-- Popups -->
+<div id="windows">
+    <!-- Generic Window (Template) -->
+    <div class="window" id="window-template">
+        <button class="close"><i class="fa fa-times"></i></button>
+        <code class="code" hidden></code>
+        <p class="message"></p>
+    </div>
+
+    <!-- Saves Window -->
+    <div class="window" id="save-window">
+        <table class="saves">
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>Blocks</td>
+                <td>Actions</td>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button class="btn new-program"><i class="fa fa-file-text"></i> New Program</button>
+    </div>
+
+    <!-- New Program Window -->
+    <div class="window" id="new-program-window" hidden>
+        <input type="text" placeholder="Name your new program" id="new-program-name">
+        <section>
+            <button class="btn" id="create-program"><i class="fa fa-check"></i> Create</button>
+            <button class="btn cancel"><i class="fa fa-ban"></i> Cancel</button>
+        </section>
+    </div>
+</div>
 
 </body>
 </html>

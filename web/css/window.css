@@ -66,7 +66,7 @@
     max-height: 100%;
     background-color: #eee;
     border-collapse: collapse;
-    border-radius: 8px;
+    border-radius: 8px 8px 0 0;
 }
 
 #save-window .saves thead {
@@ -87,15 +87,38 @@
     width: 160px;
 }
 
-#save-window .saves button {
-    cursor: pointer;
-    border-radius: 8px;
-}
-
 #save-window .saves button .fa-folder-open {
     color: #336699;
 }
 
 #save-window .saves button .fa-trash {
     color: #990000;
+}
+
+/* New program window */
+
+.btn.new-program {
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+}
+
+#new-program-window input[type="text"] {
+    width: 100%;
+}
+
+#new-program-window section {
+    display: flex;
+    margin-top: 10px;
+}
+
+#new-program-window section button {
+    flex: 1;
+}
+
+#new-program-window section button:first-child {
+    margin-right: 2px;
+}
+
+#new-program-window section button:last-child {
+    margin-left: 2px;
 }

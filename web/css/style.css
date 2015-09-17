@@ -44,6 +44,7 @@ body {
     background: linear-gradient(to bottom, #ffffff 0%,#ebf3e1 100%);
     border: 1px solid rgb(182, 218, 120);
     color: rgb(97, 131, 36);
+    border-radius: 8px;
 }
 
 .btn:hover {
@@ -68,6 +69,10 @@ body {
 
 }
 
+#btn-container .btn {
+    border-radius: 0;
+}
+
 #btn-container {
     position: absolute;
     top: 0;
@@ -87,6 +92,10 @@ body {
     border-top-right-radius: 6px;
 }
 
+#btn-container .only-child {
+    border-radius: 0 6px 0 8px;
+}
+
 /* Run button */
 
 #run .fa {
@@ -97,4 +106,11 @@ body {
 
 #help .fa {
     color: #336699;
+}
+
+/* Disable workspace */
+
+#workspace.disabled {
+    pointer-events: none;
+    opacity: 0.5;
 }

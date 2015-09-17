@@ -1,11 +1,35 @@
 part of Ilmenscript;
 
 class Window {
-  static bool is_open = false;
+  static bool is_open = false, initComplete = false;
   static Element holder = querySelector("#windows");
 
   Element w;
   String message, code;
+
+  static void init() {
+    if (initComplete) {
+      throw new StateError("Window has already been initialized");
+    }
+    new Service(["ilmenscript_internal_window"], (List<String> args) {
+      if (args[0] == "_error") {
+        // Code error window
+        String errorText = "There was an error running your code!\n\n"
+        "Please check it for: "
+        "typing errors (using one type of data when you need another), "
+        "infinite loops (no condition for the loop to end), "
+        "stray code (code you forgot to remove or blocks that are not connected to anything else), "
+        "and empty required variable slots, then try to run it again."
+        "If you need help, let us know! The code you tried to run is shown to the right.";
+        new Window.create(errorText, args[1]);
+      } else {
+        // General notification window
+        new Window.create(args[0], args[1]);
+      }
+    });
+
+    initComplete = true;
+  }
 
   Window();
 
@@ -38,20 +62,30 @@ class Window {
 
 class SaveWindow {
   static Element trigger = querySelector("#saves");
-  static Element runBtn = querySelector("#run");
-  static bool is_open = false;
+  static bool is_open = false, initComplete = false;
   static Element w = querySelector("#save-window");
   static Element list;
 
+  static void init() {
+    if (initComplete) {
+      throw new StateError("SaveWindow has already been initialized");
+    }
+
+    new Service(["ilmenscript_internal_saveswindow"], (_) => SaveWindow.open());
+    transmit("ilmenscript_internal_saveswindow");
+
+    initComplete = true;
+  }
+
   static List<Map<String, dynamic>> saves = [
     {
-      "id": 51663626,
+      "id": 1,
       "name": "My Awesome Program",
       "blocks": 15,
       "xml": ""
     },
     {
-      "id": 543156955215,
+      "id": 2,
       "name": "My (More) Awesome Program",
       "blocks": 0,
       "xml": ""
@@ -70,11 +104,14 @@ class SaveWindow {
     Window.holder.append(w);
 
     is_open = true;
+
+    toggleBlockly(false);
   }
 
   static void close() {
     w.remove();
     is_open = false;
+    toggleBlockly(true);
   }
 
   static void fill() {
@@ -121,11 +158,42 @@ class SaveWindow {
 
   static void openSave(int save_id) {
     close();
-    runBtn.hidden = false;
   }
 
   static void closeSave(int save_id) {
-    runBtn.hidden = true;
     new SaveWindow();
+  }
+}
+
+class NewProgramWindow {
+  static bool is_open = false, initComplete = false;
+  static Element w = querySelector("#new-program-window");
+
+  static void init() {
+    if (initComplete) {
+      throw new StateError("NewProgramWindow has already been initialized");
+    }
+
+    SaveWindow.w.querySelector(".new-program").onClick.listen((_) {
+      SaveWindow.close();
+      open();
+    });
+
+    initComplete = true;
+  }
+
+  static void open() {
+    if (is_open) {
+      throw new StateError("A program is already being created");
+    }
+
+    w.hidden = false;
+
+    is_open = true;
+  }
+
+  static void close() {
+    w.hidden = true;
+    is_open = false;
   }
 }
